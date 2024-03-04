@@ -22,7 +22,6 @@ class AESCrypt : Crypt() {
      * @return key-password
      */
     private fun generateKeyPassword(accountID: String): String {
-        val x ="1"
         return APP_ID_KEY_PREFIX + accountID + APP_ID_KEY_SUFFIX
     }
 
