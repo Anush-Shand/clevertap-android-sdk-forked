@@ -1,7 +1,7 @@
 name: Manually validate any branch
 on:
   workflow_dispatch:
-    inputs:
+    github.events.inputs:
       check_mandatory:
         description: Check for mandatory filechanges
         type: boolean
