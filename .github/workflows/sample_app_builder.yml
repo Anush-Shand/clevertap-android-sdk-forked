@@ -28,7 +28,7 @@ on:
 
 
 jobs:
-  build_sample_app:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -52,7 +52,7 @@ jobs:
         if: ${{ inputs.build_release_apk == 'true'}}
         run: |
           ./gradlew :sample:assembleRemoteRelease
-          
+
 
       - name: Build Release Bundle
         if: ${{ inputs.build_release_bundle == 'true'}}
