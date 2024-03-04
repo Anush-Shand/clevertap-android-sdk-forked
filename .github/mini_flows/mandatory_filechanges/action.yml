@@ -6,12 +6,14 @@ runs:
       id: filter
       with:
         filters: |
-          md: ['CHANGELOG.md']
-          src: ['clevertap-core/src/**', 'clevertap-geofence/src/**', 'clevertap-hms/src/**', 'clevertap-pushtemplates/src/**', 'clevertap-xps/src/**']
+          release: ['CHANGELOG.md', 'gradle/libs.versions.toml']
+          moduleChangelog: ['docs/**','templates/**']
+          src: ['clevertap-core/src/**', 'clevertap-geofence/src/**', 'clevertap-hms/src/**', 'clevertap-pushtemplates/src/**']
 
-    - name: FAIL if mandatory files are not changed
-      if: ${{ steps.filter.outputs.md == 'false' && steps.filter.outputs.src == 'true'}}
+    - name: FAIL if src files are changed but release files are not updated
+      if: ${{  steps.filter.outputs.src == 'true' && (steps.filter.outputs.release == 'false' || steps.filter.outputs.moduleChangelog == 'false') }}
       uses: actions/github-script@v3
       with:
         script: |
-          core.setFailed('Mandatory markdown files were not changed')
+          core.setFailed('Mandatory markdown files or versions were not changed')
+
