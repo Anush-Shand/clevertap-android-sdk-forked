@@ -47,37 +47,37 @@ jobs:
           ./gradlew :sample:assembleRemoteDebug
 
       - name: Build Debug Bundle
-        if: ${{ inputs.build_debug_bundle == 'true'}}
+        if: ${{ inputs.build_debug_bundle}}
         run: |
           ./gradlew :sample:bundleRemoteDebug
 
       - name: Build Release APK
-        if: ${{ inputs.build_release_apk == 'true'}}
+        if: ${{ inputs.build_release_apk}}
         run: |
           ./gradlew :sample:assembleRemoteRelease
 
 
       - name: Build Release Bundle
-        if: ${{ inputs.build_release_bundle == 'true'}}
+        if: ${{ inputs.build_release_bundle}}
         run: |
           ./gradlew :sample:bundleRemoteRelease
 
       - name: Upload Debug APK
-        if: ${{ inputs.build_debug_apk == 'true' }}
+        if: ${{ inputs.build_debug_apk ==}}
         uses: actions/upload-artifact@v3
         with:
           name: sample-debug-apk
           path: sample/build/outputs/apk/remote/debug/*.apk
 
       - name: Upload Debug Bundle
-        if: ${{ inputs.build_debug_bundle == 'true'}}
+        if: ${{ inputs.build_debug_bundle}}
         uses: actions/upload-artifact@v3
         with:
           name: sample-debug-bundle
           path: sample/build/outputs/bundle/remoteDebug/*.aab
 
       - name: Upload Release APK
-        if: ${{ inputs.build_release_apk == 'true'}}
+        if: ${{ inputs.build_release_apk}}
         uses: actions/upload-artifact@v3
         with:
           name: sample-release-apk
@@ -85,7 +85,7 @@ jobs:
 
 
       - name: Upload Release Bundle
-        if: ${{ inputs.build_release_bundle == 'true'}}
+        if: ${{ inputs.build_release_bundle}}
         uses: actions/upload-artifact@v3
         with:
           name: sample-release-bundle

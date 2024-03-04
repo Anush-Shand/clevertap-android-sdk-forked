@@ -70,6 +70,9 @@ jobs:
       packages: write
 
     steps:
+      - name: Output Inputs
+        run: echo "${{ toJSON(inputs) }}"
+
       - name: Checkout the code from Repo
         uses: actions/checkout@v3
 
