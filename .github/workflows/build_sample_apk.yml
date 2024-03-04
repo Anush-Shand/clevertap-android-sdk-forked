@@ -39,7 +39,7 @@ jobs:
         uses: ./.github/mini_flows/setup_jdk
 
       - name: Build Debug APK
-        if: ${{ inputs.build_debug_apk == 'true'}}
+        if: ${{ inputs.build_debug_apk}}
         run: |
           ./gradlew :sample:assembleRemoteDebug
 
