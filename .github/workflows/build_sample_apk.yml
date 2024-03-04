@@ -63,7 +63,7 @@ jobs:
           ./gradlew :sample:bundleRemoteRelease
 
       - name: Upload Debug APK
-        if: ${{ inputs.build_debug_apk ==}}
+        if: ${{ inputs.build_debug_apk}}
         uses: actions/upload-artifact@v3
         with:
           name: sample-debug-apk
