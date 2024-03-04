@@ -7,7 +7,7 @@ runs:
       with:
         filters: |
           release: ['CHANGELOG.md', 'gradle/libs.versions.toml']
-          moduleChangelog: ['docs/**','templates/**']
+          moduleChangelog: 'docs/**','templates/**'
           src: ['clevertap-core/src/**', 'clevertap-geofence/src/**', 'clevertap-hms/src/**', 'clevertap-pushtemplates/src/**']
 
     - name: FAIL if src files are changed but release files are not updated
