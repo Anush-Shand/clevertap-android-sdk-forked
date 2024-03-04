@@ -1,0 +1,134 @@
+name: Bearded Robot Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_debug_apk:
+        description: Build Debug APK
+        type: boolean
+        default: true
+        required: false
+
+      build_debug_bundle:
+        description: Build Debug Bundle
+        type: boolean
+        default: false
+        required: false
+
+      build_release_apk:
+        description: Build Release APK
+        type: boolean
+        default: false
+        required: false
+
+      build_release_bundle:
+        description: Build Release Bundle
+        type: boolean
+        default: false
+        required: false
+
+
+jobs:
+  build:
+
+  steps:
+    - name: Checkout the code from Repo
+      uses: actions/checkout@v3
+
+    - name: Setup JDK 17.
+      uses: ./.github/mini_flows/setup_jdk
+
+    - name: Build Debug APK
+      if: ${{ inputs.build_debug_apk == 'true'}}
+      run: |
+        ./gradlew :sample:assembleRemoteDebug
+
+    - name: Build Debug Bundle
+      if: ${{ inputs.build_debug_apk == 'true'}}
+      run: |
+        ./gradlew :sample:bundleRemoteDebug
+
+    - name: Build Release APK
+      if: ${{ inputs.build_release_apk == 'true'}}
+      run: |
+        ./gradlew :sample:assembleRemoteRelease
+        
+
+    - name: Build Release Bundle
+      if: ${{ inputs.build_release_bundle == 'true'}}
+      run: |
+        ./gradlew :sample:bundleRemoteRelease
+
+    - name: Upload Debug APK
+      if: ${{ inputs.build_debug_apk == 'true' }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: sample-debug-apk
+        path: sample/build/outputs/apk/remote/debug/*.apk
+
+    - name: Upload Debug Bundle
+      if: ${{ inputs.build_debug_bundle == 'true'}}
+      uses: actions/upload-artifact@v3
+      with:
+        name: sample-debug-bundle
+        path: sample/build/outputs/bundle/remoteDebug/*.aab
+
+    - name: Upload Release APK
+      if: ${{ inputs.build_release_apk == 'true'}}
+      uses: actions/upload-artifact@v3
+      with:
+        name: sample-release-apk
+        path: sample/build/outputs/apk/remote/release/*.apk
+
+
+    - name: Upload Release Bundle
+      if: ${{ inputs.build_release_bundle == 'true'}}
+      uses: actions/upload-artifact@v3
+      with:
+        name: sample-release-bundle
+        path: sample/build/outputs/bundle/remoteRelease/*.aab
+
+#      - name: Decode secret files
+#        env:
+#          BR_KEY_BASE64: ${{ secrets.BR_KEY_BASE64 }}
+#          LOCAL_PROPERTIES_BASE64: ${{ secrets.LOCAL_PROPERTIES_BASE64 }}
+#          GOOGLE_SERVICES_BASE64: ${{ secrets.GOOGLE_SERVICES_BASE64 }}
+#          AGCONNECT_SERVICES_BASE64: ${{ secrets.AGCONNECT_SERVICES_BASE64 }}
+#        run: |
+#          echo "$BR_KEY_BASE64" | base64 --decode > BRKey
+#          echo "$LOCAL_PROPERTIES_BASE64" | base64 --decode > local.properties
+#          echo "$GOOGLE_SERVICES_BASE64" | base64 --decode > BeardedRobot/google-services.json
+#          echo "$AGCONNECT_SERVICES_BASE64" | base64 --decode > BeardedRobot/agconnect-services.json
+#
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: Build APK
+#        if: ${{ inputs.buildOutput == 'apk' || inputs.buildOutput == 'both' }}
+#        run: |
+#          ./gradlew assembleRelease -Porg.gradle.jvmargs=-Xmx1024m \
+#            -Pcom.clevertap.sdkRepoRelativeLocation=../clevertap-android-sdk \
+#            -Pcom.clevertap.version.suffix=${{ env.BR_VERSION_SUFFIX }} \
+#            -Pcom.clevertap.version.qa=${{ inputs.qaVersion }}
+#
+#      - name: Build Bundle
+#        if: ${{ inputs.buildOutput == 'bundle' || inputs.buildOutput == 'both' }}
+#        run: |
+#          ./gradlew bundleRelease -Porg.gradle.jvmargs=-Xmx1024m \
+#            -Pcom.clevertap.sdkRepoRelativeLocation=../clevertap-android-sdk \
+#            -Pcom.clevertap.version.suffix=${{ env.BR_VERSION_SUFFIX }} \
+#            -Pcom.clevertap.version.qa=${{ inputs.qaVersion }}
+#
+#      - name: Upload APK
+#        if: ${{ inputs.buildOutput == 'apk' || inputs.buildOutput == 'both' }}
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: apk-${{ env.BR_VERSION_SUFFIX }}-${{ inputs.qaVersion }}
+#          path: BeardedRobot/BeardedRobot/build/outputs/apk/release/*.apk
+#
+#      - name: Upload Bundle
+#        if: ${{ inputs.buildOutput == 'bundle' || inputs.buildOutput == 'both' }}
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: bundle-${{ env.BR_VERSION_SUFFIX }}-${{ inputs.qaVersion }}
+#          path: BeardedRobot/BeardedRobot/build/outputs/bundle/release/*.aab
