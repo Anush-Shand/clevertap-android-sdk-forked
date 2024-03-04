@@ -32,62 +32,62 @@ jobs:
   build_sample_app:
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout the code from Repo
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout the code from Repo
+        uses: actions/checkout@v3
 
-    - name: Setup JDK 17.
-      uses: ./.github/mini_flows/setup_jdk
+      - name: Setup JDK 17.
+        uses: ./.github/mini_flows/setup_jdk
 
-    - name: Build Debug APK
-      if: ${{ inputs.build_debug_apk == 'true'}}
-      run: |
-        ./gradlew :sample:assembleRemoteDebug
+      - name: Build Debug APK
+        if: ${{ inputs.build_debug_apk == 'true'}}
+        run: |
+          ./gradlew :sample:assembleRemoteDebug
 
-    - name: Build Debug Bundle
-      if: ${{ inputs.build_debug_apk == 'true'}}
-      run: |
-        ./gradlew :sample:bundleRemoteDebug
+      - name: Build Debug Bundle
+        if: ${{ inputs.build_debug_apk == 'true'}}
+        run: |
+          ./gradlew :sample:bundleRemoteDebug
 
-    - name: Build Release APK
-      if: ${{ inputs.build_release_apk == 'true'}}
-      run: |
-        ./gradlew :sample:assembleRemoteRelease
-        
+      - name: Build Release APK
+        if: ${{ inputs.build_release_apk == 'true'}}
+        run: |
+          ./gradlew :sample:assembleRemoteRelease
+          
 
-    - name: Build Release Bundle
-      if: ${{ inputs.build_release_bundle == 'true'}}
-      run: |
-        ./gradlew :sample:bundleRemoteRelease
+      - name: Build Release Bundle
+        if: ${{ inputs.build_release_bundle == 'true'}}
+        run: |
+          ./gradlew :sample:bundleRemoteRelease
 
-    - name: Upload Debug APK
-      if: ${{ inputs.build_debug_apk == 'true' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: sample-debug-apk
-        path: sample/build/outputs/apk/remote/debug/*.apk
+      - name: Upload Debug APK
+        if: ${{ inputs.build_debug_apk == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: sample-debug-apk
+          path: sample/build/outputs/apk/remote/debug/*.apk
 
-    - name: Upload Debug Bundle
-      if: ${{ inputs.build_debug_bundle == 'true'}}
-      uses: actions/upload-artifact@v3
-      with:
-        name: sample-debug-bundle
-        path: sample/build/outputs/bundle/remoteDebug/*.aab
+      - name: Upload Debug Bundle
+        if: ${{ inputs.build_debug_bundle == 'true'}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: sample-debug-bundle
+          path: sample/build/outputs/bundle/remoteDebug/*.aab
 
-    - name: Upload Release APK
-      if: ${{ inputs.build_release_apk == 'true'}}
-      uses: actions/upload-artifact@v3
-      with:
-        name: sample-release-apk
-        path: sample/build/outputs/apk/remote/release/*.apk
+      - name: Upload Release APK
+        if: ${{ inputs.build_release_apk == 'true'}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: sample-release-apk
+          path: sample/build/outputs/apk/remote/release/*.apk
 
 
-    - name: Upload Release Bundle
-      if: ${{ inputs.build_release_bundle == 'true'}}
-      uses: actions/upload-artifact@v3
-      with:
-        name: sample-release-bundle
-        path: sample/build/outputs/bundle/remoteRelease/*.aab
+      - name: Upload Release Bundle
+        if: ${{ inputs.build_release_bundle == 'true'}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: sample-release-bundle
+          path: sample/build/outputs/bundle/remoteRelease/*.aab
 
 #      - name: Decode secret files
 #        env:
