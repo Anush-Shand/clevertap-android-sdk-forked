@@ -7,8 +7,7 @@ runs:
       with:
         filters: |
           release: 
-            - 'CHANGELOG.md'
-            - 'gradle/libs.versions.toml'
+            - 'CHANGELOG.md'|'gradle/libs.versions.toml'
           version: ['gradle/libs.versions.toml']
           src: ['clevertap-core/src/**', 'clevertap-geofence/src/**', 'clevertap-hms/src/**', 'clevertap-pushtemplates/src/**']
           coreModuleChangelog: ['docs/CTCORECHANGELOG.md','templates/CTCORECHANGELOG.md']
