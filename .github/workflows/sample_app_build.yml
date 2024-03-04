@@ -29,7 +29,7 @@ on:
 
 
 jobs:
-  build:
+  build_sample_app:
     runs-on: ubuntu-latest
 
   steps:
