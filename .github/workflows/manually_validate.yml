@@ -74,7 +74,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Mandatory File Changes
-        if: ${{ github.event.inputs.check_mandatory }}
+        if: ${{ github.event.inputs.check_mandatory == 'true' }}
         uses: ./.github/mini_flows/mandatory_filechanges
 
       - name: Setup JDK 17.
