@@ -1,4 +1,4 @@
-name: Bearded Robot Build
+name: Sample App Build
 
 on:
   workflow_dispatch:
@@ -30,6 +30,7 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
 
   steps:
     - name: Checkout the code from Repo
