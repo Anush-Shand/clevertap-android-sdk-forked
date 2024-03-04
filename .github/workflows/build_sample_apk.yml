@@ -32,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Output Inputs
+        run: echo "${{ toJSON(inputs) }}"
+
       - name: Checkout the code from Repo
         uses: actions/checkout@v3
 
