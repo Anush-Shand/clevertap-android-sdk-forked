@@ -7,9 +7,10 @@ runs:
       with:
         filters: |
           md: ['CHANGELOG.md']
+          src: 'src/**'
 
     - name: FAIL if mandatory files are not changed
-      if: ${{ steps.filter.outputs.md == 'false' }}
+      if: ${{ steps.filter.outputs.md == 'false' && steps.filter.outputs.src == 'true'}}
       uses: actions/github-script@v3
       with:
         script: |
