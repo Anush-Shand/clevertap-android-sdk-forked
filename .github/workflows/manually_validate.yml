@@ -81,38 +81,38 @@ jobs:
         uses: ./.github/mini_flows/setup_jdk
 
       - name: Run lint tests and Upload results
-        if: ${{ github.event.inputs.lint }}
+        if: ${{ github.event.inputs.lint == 'true' }}
         uses: ./.github/mini_flows/lint
 
       - name: Static Code Check Via detekt
-        if: ${{ github.event.inputs.detekt }}
+        if: ${{ github.event.inputs.detekt == 'true' }}
         uses: ./.github/mini_flows/codechecks_detekt
 
       - name: Static Code Check Via checkstyle
-        if: ${{ github.event.inputs.checkstyle }}
+        if: ${{ github.event.inputs.checkstyle == 'true' }}
         uses: ./.github/mini_flows/codechecks_checkstyle
 
       - name: Unit Tests and Jacoco Coverage (DEBUG)
-        if: ${{ github.event.inputs.jacoco_debug }}
+        if: ${{ github.event.inputs.jacoco_debug == 'true' }}
         uses: ./.github/mini_flows/test_and_coverage_debug
 
       - name: Unit Tests and Jacoco Coverage (RELEASE)
-        if: ${{ github.event.inputs.jacoco_release }}
+        if: ${{ github.event.inputs.jacoco_release == 'true' }}
         uses: ./.github/mini_flows/test_and_coverage_release
 
       - name: Unit Tests(DEBUG)
-        if: ${{ github.event.inputs.test_debug }}
+        if: ${{ github.event.inputs.test_debug == 'true' }}
         uses: ./.github/mini_flows/test_debug
 
       - name: Unit Tests(RELEASE)
-        if: ${{ github.event.inputs.test_release }}
+        if: ${{ github.event.inputs.test_release == 'true' }}
         uses: ./.github/mini_flows/test_release
 
 
       - name: Build AARs (DEBUG)
-        if: ${{ github.event.inputs.build_debug }}
+        if: ${{ github.event.inputs.build_debug == 'true' }}
         uses: ./.github/mini_flows/build_code_debug
 
       - name: Build AARs (RELEASE)
-        if: ${{ github.event.inputs.build_release }}
+        if: ${{ github.event.inputs.build_release == 'true'}}
         uses: ./.github/mini_flows/build_code_release
