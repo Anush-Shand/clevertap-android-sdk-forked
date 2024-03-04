@@ -6,12 +6,18 @@ runs:
       id: filter
       with:
         filters: |
-          release: ['CHANGELOG.md', 'gradle/libs.versions.toml']
-          moduleChangelog: - 'docs/**','templates/**'
+          release: 
+            - 'CHANGELOG.md'
+            - 'gradle/libs.versions.toml'
+          version: ['gradle/libs.versions.toml']
           src: ['clevertap-core/src/**', 'clevertap-geofence/src/**', 'clevertap-hms/src/**', 'clevertap-pushtemplates/src/**']
+          coreModuleChangelog: ['docs/CTCORECHANGELOG.md','templates/CTCORECHANGELOG.md']
+          geofenceModuleChangelog: ['docs/CTGEOFENCECHANGELOG.md','templates/CTGEOFENCECHANGELOG.md']
+          templatesModuleChangelog: ['docs/CTCORECHANGELOG.md','templates/CTCORECHANGELOG.md']
+          huaweiModuleChangelog: ['docs/CTHUAWEIPUSHCHANGELOG.md.md','templates/CTHUAWEIPUSHCHANGELOG.md']
 
     - name: FAIL if src files are changed but release files are not updated
-      if: ${{  steps.filter.outputs.src == 'true' && (steps.filter.outputs.release == 'false' || steps.filter.outputs.moduleChangelog == 'false') }}
+      if: ${{  steps.filter.outputs.src == 'true' && steps.filter.outputs.release == 'false'}}
       uses: actions/github-script@v3
       with:
         script: |
