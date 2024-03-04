@@ -7,7 +7,7 @@ runs:
       with:
         filters: |
           md: ['CHANGELOG.md']
-          src: 'src/**'
+          src: 'clevertap-core/src/**'
 
     - name: FAIL if mandatory files are not changed
       if: ${{ steps.filter.outputs.md == 'false' && steps.filter.outputs.src == 'true'}}
