@@ -59,7 +59,7 @@ jobs:
           
 
       - name: Replace Clevertap Account ID in AndroidManifest.xml
-        run: sed -i "s/YOUR ACCT ID/${{ github.event.inputs.account_id }}/g" AndroidManifest.xml
+        run: sed -i "s/YOUR ACCT ID/${{ github.event.inputs.account_id }}/g" sample/src/main/AndroidManifest.xml
 
       - name: Build Debug APK
         if: ${{ inputs.build_debug_apk}}
