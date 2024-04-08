@@ -26,6 +26,12 @@ on:
         default: false
         required: false
 
+      account_id:
+        description: 'Clevertap Account ID'
+        type: string
+        default: ""
+        required: true
+
 
 jobs:
   build:
@@ -50,6 +56,10 @@ jobs:
           echo "$GOOGLE_SERVICES_BASE64" | base64 --decode > sample/google-services.json
           echo "$SAMPLE_KEY_BASE64" | base64 --decode > sample/SampleKey
           echo "$LOCAL_PROPERTIES_BASE64" | base64 --decode > local.properties
+          
+
+      - name: Replace Clevertap Account ID in AndroidManifest.xml
+        run: sed -i "s/YOUR ACCT ID/${{ github.event.inputs.account_id }}/g" AndroidManifest.xml
 
       - name: Build Debug APK
         if: ${{ inputs.build_debug_apk}}
